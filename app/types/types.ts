@@ -2,7 +2,10 @@ export interface Task {
   id: string
   projectId: string
   text: string
-  assignedTo: string
+  assignedTo: {
+    id: string
+    name: string
+  }
   description: string
   dueDate: string
   priority: string

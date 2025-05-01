@@ -44,7 +44,7 @@ export default function TimerButton({ task }: Props) {
   };
 
   return (
-    <div className="mt-4 flex items-center gap-4">
+    <div className="mt-4 items-center gap-4 text-gray-200 flex justify-between">
       <span className="text-sm font-mono">{formatTime(seconds)}</span>
       <Button color={isRunning ? "red" : "green"} onClick={toggleTimer}>
         {isRunning ? "Zatrzymaj" : "Start"}

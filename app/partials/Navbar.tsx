@@ -16,10 +16,12 @@ import useStore from "../lib/store";
 
 export function Nav() {
     const pathname = usePathname(); // This gives you the current URL path
-    const [user, setUser] = useState('admin')
 
-    const { users } = useStore();
+    const { users, currentUser, setCurrentUser } = useStore();
 
+    const handleChangeUser = (user: any) => {
+        setCurrentUser(user);
+    }
     return (
         <Navbar fluid rounded className="!bg-gray-800 border-b">
             <NavbarBrand href="/">
@@ -27,16 +29,16 @@ export function Nav() {
                 <span className="self-center whitespace-nowrap text-xl font-semibold">Tracker.</span>
             </NavbarBrand>
             <div className="flex md:order-2 items-center gap-2">
-                <div className="capitalize w-20 flex justify-end">{user}</div>
+                <div className="capitalize w-20 flex justify-end text-gray-300">{currentUser.name}</div>
                 <Dropdown
                     arrowIcon={false}
                     inline
                     label={
-                        <Avatar alt="User settings" img={`/${user}.svg`} rounded />
+                        <Avatar alt="User settings" img={`/${currentUser.name}.svg`} rounded />
                     }
                 >
                     {users.map((user) => (
-                        <DropdownItem key={user.id} onClick={() => setUser(user.name.toLowerCase())}>{user.name}</DropdownItem>
+                        <DropdownItem key={user.id} onClick={() => handleChangeUser(user)}>{user.name}</DropdownItem>
                     ))}
                 </Dropdown>
                 <NavbarToggle />

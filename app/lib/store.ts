@@ -5,12 +5,14 @@ import { Dispatch, SetStateAction } from 'react'
 interface StoreState {
   tasks: Task[]
   users: User[]
-  projects: Project[]
+  projects: Project[],
+  currentUser: User
   updateTask: (updatedTask: Task) => void
   setTasks: Dispatch<SetStateAction<Task[]>>
   moveTaskToColumn: (taskId: string, newColumn: string) => void
   addTask: (task: Task) => void
   updateTaskTime: (taskId: string, time: number) => void;
+  setCurrentUser: (user: User) => void 
 }
 
 const initialTasks: Task[] = [
@@ -18,7 +20,10 @@ const initialTasks: Task[] = [
     id: "1",
     projectId: "1",
     text: "Zaprojektować stronę główną",
-    assignedTo: "Łukasz",
+    assignedTo: {
+      id: "1",
+      name: "Kasia",
+    },
     description: "Stworzyć layout i główny układ strony",
     dueDate: "2025-05-10",
     priority: "wysoki",
@@ -29,7 +34,10 @@ const initialTasks: Task[] = [
     id: "2",
     projectId: "1",
     text: "Zintegrować API pogodowe",
-    assignedTo: "Marta",
+    assignedTo: {
+      id: "2",
+      name: "Mateusz",
+    },
     description: "Dodać dane pogodowe do dashboardu",
     dueDate: "2025-05-12",
     priority: "średni",
@@ -78,6 +86,7 @@ const useStore = create<StoreState>((set) => ({
   tasks: initialTasks,
   users: initialUsers,
   projects: initialProjects,
+  currentUser: initialUsers[0],
   updateTask: (updatedTask: Task) =>
     set((state) => ({
       tasks: state.tasks.map((task) =>
@@ -95,13 +104,15 @@ const useStore = create<StoreState>((set) => ({
   addTask: (task: Task) => set((state) => ({
     tasks: [...state.tasks, task],
   })),
-
   updateTaskTime: (taskId: string, time: number) =>
     set((state) => ({
       tasks: state.tasks.map((task) =>
         task.id === taskId ? { ...task, elapsedTime: time } : task
       ),
     })),
+  setCurrentUser: (user: User) => set(() => ({
+    currentUser: user,
+  })),
 }))
 
 export default useStore
