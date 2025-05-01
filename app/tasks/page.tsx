@@ -24,11 +24,12 @@ export default function Home() {
       id: String(taskIdCounter++),
       projectId: project.id,
       text: newTaskText,
-      assignedTo: "Ty",
+      assignedTo: null,
       description: "",
       dueDate: "",
       priority: "",
       status: "todo",
+      elapsedTime: 0,
     };
 
     setTasks((prev: Task[]) => [...prev, newTask]);

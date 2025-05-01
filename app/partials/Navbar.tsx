@@ -26,7 +26,7 @@ export function Nav() {
         <Navbar fluid rounded className="!bg-gray-800 border-b">
             <NavbarBrand href="/">
                 <img src="/globe.svg" className="mr-3 h-6 sm:h-9" alt="Flowbite React Logo" />
-                <span className="self-center whitespace-nowrap text-xl font-semibold">Tracker.</span>
+                <span className="self-center whitespace-nowrap text-xl font-semibold text-gray-300">Tracker.</span>
             </NavbarBrand>
             <div className="flex md:order-2 items-center gap-2">
                 <div className="capitalize w-20 flex justify-end text-gray-300">{currentUser.name}</div>

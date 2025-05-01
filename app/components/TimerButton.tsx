@@ -11,27 +11,36 @@ interface Props {
 
 export default function TimerButton({ task }: Props) {
   const { updateTaskTime } = useStore();
-  const [seconds, setSeconds] = useState(task.elapsedTime); // Zainicjowane czasem z store
+  const [seconds, setSeconds] = useState(task.elapsedTime); 
   const [isRunning, setIsRunning] = useState(false);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  const lastElapsedTime = useRef(task.elapsedTime);
 
   useEffect(() => {
     if (isRunning) {
       intervalRef.current = setInterval(() => {
         setSeconds((prev) => {
           const newTime = prev + 1;
-          updateTaskTime(task.id, newTime); // Zapisujemy nowy czas do store
+
+          if (lastElapsedTime.current !== newTime) {
+            lastElapsedTime.current = newTime;
+          }
+          
           return newTime;
         });
       }, 1000);
     } else if (!isRunning && intervalRef.current) {
       clearInterval(intervalRef.current);
+      intervalRef.current = null;
+
+      updateTaskTime(task.id, seconds);
     }
 
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
-  }, [isRunning, task.id, updateTaskTime]);
+  }, [isRunning, seconds, updateTaskTime, task.id]);
 
   const toggleTimer = () => {
     setIsRunning(!isRunning);
@@ -44,7 +53,7 @@ export default function TimerButton({ task }: Props) {
   };
 
   return (
-    <div className="mt-4 items-center gap-4 text-gray-200 flex justify-between">
+    <div className="mt-4 flex items-center gap-4 text-gray-200 justify-between">
       <span className="text-sm font-mono">{formatTime(seconds)}</span>
       <Button color={isRunning ? "red" : "green"} onClick={toggleTimer}>
         {isRunning ? "Zatrzymaj" : "Start"}

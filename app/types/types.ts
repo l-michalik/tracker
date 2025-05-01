@@ -5,7 +5,7 @@ export interface Task {
   assignedTo: {
     id: string
     name: string
-  }
+  } | null
   description: string
   dueDate: string
   priority: string

@@ -59,7 +59,7 @@ export default function TaskCard({ task, columnName }: Props) {
           />
           <select
             name="assignedTo"
-            value={editedTask.assignedTo}
+            value={editedTask.assignedTo?.name}
             onChange={handleChange}
             className="mb-2 rounded px-2 py-1 text-black bg-gray-300"
           >
@@ -109,7 +109,7 @@ export default function TaskCard({ task, columnName }: Props) {
                   {icon}
                 </span>
                 <Badge className="flex-1 mr-2 p-1 flex justify-center" color={color}>
-                  {text}
+                  {typeof text === "object" && text !== null ? text.name : text}
                 </Badge>
               </div>
             ))}
