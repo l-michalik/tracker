@@ -9,14 +9,9 @@ let taskIdCounter = 7; // startujemy od 7, bo w store jest 6 zadań
 
 export default function Home() {
   const [project, setProject] = useState("Projekt A");
-  const [tasks, setTasks] = useState<Task[]>([]);
   const [newTaskText, setNewTaskText] = useState("");
 
-  const { tasks: storeTasks } = useStore();
-
-  useEffect(() => {
-    setTasks(storeTasks);
-  }, []);
+  const { tasks, setTasks } = useStore();
 
   const handleNewTask = () => {
     if (!newTaskText.trim()) return;
@@ -31,7 +26,7 @@ export default function Home() {
       status: "todo",
     };
 
-    setTasks((prev) => [...prev, newTask]);
+    setTasks((prev: Task[]) => [...prev, newTask]);
     setNewTaskText("");
   };
 

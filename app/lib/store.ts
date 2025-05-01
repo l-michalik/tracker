@@ -1,10 +1,12 @@
 import { create } from 'zustand'
 import { Task, User } from '../types/types'
+import { Dispatch, SetStateAction } from 'react'
 
 interface StoreState {
   tasks: Task[]
   users: User[]
-  updateTask: (updatedTask: Task) => void
+  updateTask: (updatedTask: Task) => void,
+  setTasks: Dispatch<SetStateAction<Task[]>>
 }
 
 const initialTasks: Task[] = [
@@ -57,6 +59,10 @@ const useStore = create<StoreState>((set) => ({
       tasks: state.tasks.map((task) =>
         task.id === updatedTask.id ? updatedTask : task
       ),
+    })),
+  setTasks: (action: SetStateAction<Task[]>) =>
+    set((state) => ({
+      tasks: typeof action === 'function' ? (action as (prevState: Task[]) => Task[])(state.tasks) : action,
     })),
 }))
 
