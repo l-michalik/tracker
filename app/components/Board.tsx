@@ -1,7 +1,6 @@
 import { ColumnData, Task } from "../types/types";
-import { handleDragOver } from "../utils";
-import Column from "./Column";
 import { Dispatch, SetStateAction } from "react";
+import Column from "./Column";
 
 type Props = {
   columns: ColumnData;
@@ -28,7 +27,7 @@ export default function Board({ columns, setColumns }: Props) {
   };
 
   return (
-    <div className="flex gap-5 bg-gray-600 p-3">
+    <div className="flex gap-5 bg-gray-600 p-3 rounded-lg overflow-x-auto">
       {Object.entries(columns).map(([columnName, tasks]) => (
         <Column
           key={columnName}

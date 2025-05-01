@@ -11,13 +11,15 @@ export default function TaskCard({ task, columnName }: Props) {
     <div
       draggable
       onDragStart={(e) => handleDragStart(e, task.id, columnName)}
-      className="bg-white shadow rounded p-2 cursor-move"
+      className="bg-gray-600 shadow rounded p-2 cursor-move justify-between"
     >
       <div className="font-bold">{task.text}</div>
-      <div className="text-sm text-gray-600">
-        📌 {task.priority || "brak"} | 📅 {task.dueDate || "brak"}
+      <hr />
+      <div className="flex gap-2">
+        <div>📌 {task.priority || "brak"}</div>
+        <div>📅 {task.dueDate || "brak"}</div>
+        <div>👤 {task.assignedTo || "brak"}</div>
       </div>
-      <div className="text-xs text-gray-500">👤 {task.assignedTo}</div>
     </div>
   );
 }

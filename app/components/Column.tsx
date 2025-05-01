@@ -1,5 +1,5 @@
 import { Task } from "../types/types";
-import { handleDragOver, handleDragStart } from "../utils";
+import { handleDragOver } from "../utils";
 import TaskCard from "./TaskCard";
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
 export default function Column({ name, tasks, onDrop }: Props) {
   return (
     <div
-      className="bg-gray-100 rounded-md p-3 w-1/3 min-h-[200px]"
+      className="bg-gray-800 rounded-md p-3 min-h-[200px] w-[500px]"
       onDrop={(e) => onDrop(e, name)}
       onDragOver={handleDragOver}
     >

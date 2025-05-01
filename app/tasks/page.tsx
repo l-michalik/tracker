@@ -1,30 +1,22 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Label, Select, TextInput, Button } from "flowbite-react";
 import Board from "../components/Board";
-import { ColumnData, Task } from "../types/types";
-
-const initialData: ColumnData = {
-  todo: [
-    {
-      id: "1",
-      text: "Task 1",
-      assignedTo: "Ty",
-      description: "",
-      dueDate: "",
-      priority: "",
-    },
-  ],
-  inProgress: [],
-  done: [],
-};
+import { Task } from "../types/types";
+import useStore from "../lib/store";
 
 let taskIdCounter = 2;
 
 export default function Home() {
   const [project, setProject] = useState("Projekt A");
-  const [columns, setColumns] = useState<ColumnData>(initialData);
+  const [columns, setColumns] = useState<any>({});
   const [newTaskText, setNewTaskText] = useState("");
+
+  const { data } = useStore();
+
+  useEffect(() => {
+    setColumns(data)
+  }, [])
 
   const handleNewTask = () => {
     if (!newTaskText.trim()) return;
@@ -38,7 +30,7 @@ export default function Home() {
       priority: "",
     };
 
-    setColumns((prev) => ({
+    setColumns((prev:any) => ({
       ...prev,
       todo: [...prev.todo, newTask],
     }));
