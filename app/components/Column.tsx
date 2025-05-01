@@ -11,7 +11,7 @@ type Props = {
 export default function Column({ name, tasks, onDrop }: Props) {
   return (
     <div
-      className="bg-gray-800 rounded-md p-3 min-h-[200px] w-[500px]"
+      className="bg-gray-800 rounded-md p-3 min-h-[200px] w-[5000px]"
       onDrop={(e) => onDrop(e, name)}
       onDragOver={handleDragOver}
     >

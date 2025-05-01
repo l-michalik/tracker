@@ -1,39 +1,47 @@
-import { ColumnData, Task } from "../types/types";
+import { Task } from "../types/types";
 import { Dispatch, SetStateAction } from "react";
 import Column from "./Column";
 
 type Props = {
-  columns: ColumnData;
-  setColumns: Dispatch<SetStateAction<ColumnData>>;
+  tasks: Task[];
+  setTasks: Dispatch<SetStateAction<Task[]>>;
 };
 
-export default function Board({ columns, setColumns }: Props) {
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>, toColumn: string) => {
+export default function Board({ tasks, setTasks }: Props) {
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>, toStatus: string) => {
     e.preventDefault();
-    const { itemId, fromColumn }: { itemId: string; fromColumn: string } = JSON.parse(
+    const { itemId, fromStatus }: { itemId: string; fromStatus: string } = JSON.parse(
       e.dataTransfer.getData("text/plain")
     );
 
-    if (fromColumn === toColumn) return;
+    if (fromStatus === toStatus) return;
 
-    const item = columns[fromColumn].find((task) => task.id === itemId);
+    const item = tasks.find((task) => task.id === itemId);
     if (!item) return;
 
-    setColumns((prev) => ({
-      ...prev,
-      [fromColumn]: prev[fromColumn].filter((task) => task.id !== itemId),
-      [toColumn]: [...prev[toColumn], item],
-    }));
+    setTasks((prev: any) => {
+      const updatedTasks = prev.map((task:any) =>
+        task.id === itemId ? { ...task, status: toStatus } : task
+      );
+      return updatedTasks;
+    });
   };
 
+  // Grupowanie zadań według statusu
+  const groupedTasks = tasks.reduce((acc, task) => {
+    if (!acc[task.status]) acc[task.status] = [];
+    acc[task.status].push(task);
+    return acc;
+  }, {} as { [key: string]: Task[] });
+
   return (
-    <div className="flex gap-5 bg-gray-600 p-3 rounded-lg overflow-x-auto">
-      {Object.entries(columns).map(([columnName, tasks]) => (
+    <div className="flex gap-5 bg-gray-600 p-3 rounded-lg w-screen overflow-x-auto" style={{ whiteSpace: "nowrap" }}>
+      {["todo", "inProgress", "blocked", "done"].map((status) => (
         <Column
-          key={columnName}
-          name={columnName}
-          tasks={tasks}
-          onDrop={handleDrop}
+          key={status}
+          name={status}
+          tasks={groupedTasks[status] || []}
+          onDrop={(e) => handleDrop(e, status)}
         />
       ))}
     </div>

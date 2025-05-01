@@ -5,18 +5,18 @@ import Board from "../components/Board";
 import { Task } from "../types/types";
 import useStore from "../lib/store";
 
-let taskIdCounter = 2;
+let taskIdCounter = 7; // startujemy od 7, bo w store jest 6 zadań
 
 export default function Home() {
   const [project, setProject] = useState("Projekt A");
-  const [columns, setColumns] = useState<any>({});
+  const [tasks, setTasks] = useState<Task[]>([]);
   const [newTaskText, setNewTaskText] = useState("");
 
-  const { data } = useStore();
+  const { tasks: storeTasks } = useStore();
 
   useEffect(() => {
-    setColumns(data)
-  }, [])
+    setTasks(storeTasks);
+  }, []);
 
   const handleNewTask = () => {
     if (!newTaskText.trim()) return;
@@ -28,13 +28,10 @@ export default function Home() {
       description: "",
       dueDate: "",
       priority: "",
+      status: "todo",
     };
 
-    setColumns((prev:any) => ({
-      ...prev,
-      todo: [...prev.todo, newTask],
-    }));
-
+    setTasks((prev) => [...prev, newTask]);
     setNewTaskText("");
   };
 
@@ -58,7 +55,7 @@ export default function Home() {
         <Button onClick={handleNewTask}>Dodaj zadanie</Button>
       </div>
 
-      <Board columns={columns} setColumns={setColumns} />
+      <Board tasks={tasks} setTasks={setTasks} />
     </div>
   );
 }
