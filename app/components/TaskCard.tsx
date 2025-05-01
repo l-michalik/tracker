@@ -42,26 +42,26 @@ export default function TaskCard({ task, columnName }: Props) {
             name="text"
             value={editedTask.text}
             onChange={handleChange}
-            className="mb-2 rounded px-2 py-1 text-black bg-white"
+            className="mb-2 rounded px-2 py-1 text-black bg-gray-300"
           />
           <textarea
             name="description"
             value={editedTask.description}
             onChange={handleChange}
-            className="mb-2 rounded px-2 py-1 text-black bg-white"
+            className="mb-2 rounded px-2 py-1 text-black bg-gray-300"
           />
           <input
             name="dueDate"
             type="date"
             value={editedTask.dueDate}
             onChange={handleChange}
-            className="mb-2 rounded px-2 py-1 text-black bg-white"
+            className="mb-2 rounded px-2 py-1 text-black bg-gray-300"
           />
           <select
             name="assignedTo"
             value={editedTask.assignedTo}
             onChange={handleChange}
-            className="mb-2 rounded px-2 py-1 text-black bg-white"
+            className="mb-2 rounded px-2 py-1 text-black bg-gray-300"
           >
             {users.map((user) => (
               <option key={user.id} value={user.name}>
@@ -73,7 +73,7 @@ export default function TaskCard({ task, columnName }: Props) {
             name="priority"
             value={editedTask.priority}
             onChange={handleChange}
-            className="mb-2 rounded px-2 py-1 text-black bg-white"
+            className="mb-2 rounded px-2 py-1 text-black bg-gray-300"
           >
             <option value="niski">niski</option>
             <option value="średni">średni</option>
@@ -85,9 +85,9 @@ export default function TaskCard({ task, columnName }: Props) {
         </>
       ) : (
         <>
-          <div className="task-title text-lg font-semibold">{task.text}</div>
+          <div className="task-title text-lg text-gray-300 font-semibold">{task.text}</div>
           <hr className="my-2" />
-          <div className="task-title text-xs font-semibold">{task.description}</div>
+          <div className="task-title text-xs text-gray-300 font-semibold">{task.description}</div>
           <hr className="my-2" />
           <div className="flex text-sm">
             {[
@@ -108,7 +108,7 @@ export default function TaskCard({ task, columnName }: Props) {
                 <span role="img" aria-label="icon">
                   {icon}
                 </span>
-                <Badge className="w-20" color={color}>
+                <Badge className="flex-1 mr-2 p-1" color={color}>
                   {text}
                 </Badge>
               </div>

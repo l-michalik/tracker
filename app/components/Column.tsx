@@ -27,7 +27,7 @@ export default function Column({ columnName, tasks }: Props) {
       onDrop={handleDrop}
       onDragOver={handleDragOver}
     >
-      <h3 className="text-lg font-semibold capitalize mb-3">{columnName}</h3>
+      <h3 className="text-lg font-semibold text-gray-300 capitalize mb-3">{columnName}</h3>
       <div className="flex flex-col gap-2">
         {tasks.map((task) => (
           <TaskCard key={task.id} task={task} columnName={columnName} />

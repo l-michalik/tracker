@@ -21,10 +21,10 @@ export function Nav() {
     const { users } = useStore();
 
     return (
-        <Navbar fluid rounded className="!bg-black border-b">
+        <Navbar fluid rounded className="!bg-gray-800 border-b">
             <NavbarBrand href="/">
                 <img src="/globe.svg" className="mr-3 h-6 sm:h-9" alt="Flowbite React Logo" />
-                <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">Tracker.</span>
+                <span className="self-center whitespace-nowrap text-xl font-semibold">Tracker.</span>
             </NavbarBrand>
             <div className="flex md:order-2 items-center gap-2">
                 <div className="capitalize w-20 flex justify-end">{user}</div>
@@ -51,7 +51,7 @@ export function Nav() {
                     <Link
                         key={item.href}
                         href={item.href}
-                        className={`p-2 rounded-xl ${pathname === item.href ? 'bg-violet-700 text-white' : 'text-white hover:bg-violet-600'}`}
+                        className={`p-2 rounded-xl ${pathname === item.href ? 'bg-gray-300 text-gray-700' : 'text-gray-300'}`}
                     >
                         {item.label}
                     </Link>

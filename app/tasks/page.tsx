@@ -31,7 +31,7 @@ export default function Home() {
   };
 
   return (
-    <div className="p-5 flex flex-col gap-5">
+    <div className="p-5 flex flex-col gap-5 bg-gray-900 h-screen">
       <div className="max-w-[200px]">
         <Label htmlFor="projects">Wybierz projekt</Label>
         <Select id="projects" value={project} onChange={(e) => setProject(e.target.value)}>
