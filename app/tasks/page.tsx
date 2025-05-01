@@ -5,19 +5,20 @@ import Board from "../components/Board";
 import { Task } from "../types/types";
 import useStore from "../lib/store";
 
-let taskIdCounter = 7; // startujemy od 7, bo w store jest 6 zadań
+let taskIdCounter = 7;
 
 export default function Home() {
   const [project, setProject] = useState("Projekt A");
   const [newTaskText, setNewTaskText] = useState("");
 
-  const { tasks, setTasks } = useStore();
+  const { tasks, projects ,setTasks } = useStore();
 
   const handleNewTask = () => {
     if (!newTaskText.trim()) return;
 
     const newTask: Task = {
       id: String(taskIdCounter++),
+      projectId: project,
       text: newTaskText,
       assignedTo: "Ty",
       description: "",
@@ -30,14 +31,20 @@ export default function Home() {
     setNewTaskText("");
   };
 
+  useEffect(() => {
+    // @TODO
+  }, [project]);
+
   return (
     <div className="p-5 flex flex-col gap-5 bg-gray-900 h-screen">
-      <div className="max-w-[200px]">
+      <div className="max-w-[200px] flex flex-col gap-2">
         <Label htmlFor="projects">Wybierz projekt</Label>
         <Select id="projects" value={project} onChange={(e) => setProject(e.target.value)}>
-          <option>Projekt A</option>
-          <option>Projekt B</option>
-          <option>Projekt C</option>
+          {projects.map((project) => (
+            <option key={project.id} value={project.name}>
+              {project.name}
+            </option>
+          ))}
         </Select>
       </div>
 

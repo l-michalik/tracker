@@ -1,10 +1,11 @@
 import { create } from 'zustand'
-import { Task, User } from '../types/types'
+import { Project, Task, User } from '../types/types'
 import { Dispatch, SetStateAction } from 'react'
 
 interface StoreState {
   tasks: Task[]
   users: User[]
+  projects: Project[]
   updateTask: (updatedTask: Task) => void,
   setTasks: Dispatch<SetStateAction<Task[]>>
   moveTaskToColumn: (taskId: string, newColumn: string) => void
@@ -13,6 +14,7 @@ interface StoreState {
 const initialTasks: Task[] = [
   {
     id: "1",
+    projectId: "1",
     text: "Zaprojektować stronę główną",
     assignedTo: "Łukasz",
     description: "Stworzyć layout i główny układ strony",
@@ -22,6 +24,7 @@ const initialTasks: Task[] = [
   },
   {
     id: "2",
+    projectId: "1",
     text: "Zintegrować API pogodowe",
     assignedTo: "Marta",
     description: "Dodać dane pogodowe do dashboardu",
@@ -52,9 +55,25 @@ const initialUsers: User[] = [
   },
 ]
 
+const initialProjects: Project[] = [
+  {
+    id: "1",
+    name: "Projekt A",
+  },
+  {
+    id: "2",
+    name: "Projekt B",
+  },
+  {
+    id: "3",
+    name: "Projekt C",
+  },
+]
+
 const useStore = create<StoreState>((set) => ({
   tasks: initialTasks,
   users: initialUsers,
+  projects: initialProjects,
   updateTask: (updatedTask: Task) =>
     set((state) => ({
       tasks: state.tasks.map((task) =>

@@ -1,11 +1,17 @@
 export interface Task {
   id: string
+  projectId: string
   text: string
   assignedTo: string
   description: string
   dueDate: string
   priority: string
   status: Status
+}
+
+export interface Project {
+  id: string
+  name: string
 }
 
 export interface User {
