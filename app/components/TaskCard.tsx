@@ -1,5 +1,6 @@
 import { Task } from "../types/types";
 import { handleDragStart } from "../utils";
+import { Badge } from "flowbite-react";
 
 type Props = {
   task: Task;
@@ -11,14 +12,25 @@ export default function TaskCard({ task, columnName }: Props) {
     <div
       draggable
       onDragStart={(e) => handleDragStart(e, task.id, columnName)}
-      className="bg-gray-600 shadow rounded p-2 cursor-move justify-between"
+      className="task-card bg-gray-600 shadow-lg rounded p-3 cursor-move flex flex-col"
     >
-      <div className="font-bold">{task.text}</div>
-      <hr />
-      <div className="flex gap-2">
-        <div>📌 {task.priority || "brak"}</div>
-        <div>📅 {task.dueDate || "brak"}</div>
-        <div>👤 {task.assignedTo || "brak"}</div>
+      {/* Task title */}
+      <div className="task-title text-lg font-semibold">{task.text}</div>
+
+      <hr className="my-2" />
+
+      {/* Task details */}
+      <div className="flex text-sm">
+        {[
+          { icon: "📌", color: task.priority === "wysoki" ? "red" : task.priority === "średni" ? "yellow" : "green", text: task.priority || "niski" },
+          { icon: "📅", text: task.dueDate || "Brak daty" },
+          { icon: "👤", text: task.assignedTo || "Brak przypisania" },
+        ].map(({ icon, color, text }, index) => (
+          <div key={index} className={`flex items-center justify-left gap-2 flex-1`}>
+            <span role="img" aria-label="icon">{icon}</span>
+            <Badge className="w-20" color={color}>{text}</Badge>
+          </div>
+        ))}
       </div>
     </div>
   );

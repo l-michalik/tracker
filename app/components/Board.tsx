@@ -35,7 +35,7 @@ export default function Board({ tasks, setTasks }: Props) {
   }, {} as { [key: string]: Task[] });
 
   return (
-    <div className="flex gap-5 bg-gray-600 p-3 rounded-lg w-screen overflow-x-auto" style={{ whiteSpace: "nowrap" }}>
+    <div className="flex gap-5 bg-gray-600 p-3 rounded-lg overflow-x-auto" style={{ whiteSpace: "nowrap" }}>
       {["todo", "inProgress", "blocked", "done"].map((status) => (
         <Column
           key={status}
