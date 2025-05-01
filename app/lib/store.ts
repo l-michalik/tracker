@@ -10,6 +10,7 @@ interface StoreState {
   setTasks: Dispatch<SetStateAction<Task[]>>
   moveTaskToColumn: (taskId: string, newColumn: string) => void
   addTask: (task: Task) => void
+  updateTaskTime: (taskId: string, time: number) => void;
 }
 
 const initialTasks: Task[] = [
@@ -22,6 +23,7 @@ const initialTasks: Task[] = [
     dueDate: "2025-05-10",
     priority: "wysoki",
     status: "todo",
+    elapsedTime: 0,
   },
   {
     id: "2",
@@ -32,6 +34,7 @@ const initialTasks: Task[] = [
     dueDate: "2025-05-12",
     priority: "średni",
     status: "todo",
+    elapsedTime: 0,
   },
 ]
 
@@ -92,6 +95,13 @@ const useStore = create<StoreState>((set) => ({
   addTask: (task: Task) => set((state) => ({
     tasks: [...state.tasks, task],
   })),
+
+  updateTaskTime: (taskId: string, time: number) =>
+    set((state) => ({
+      tasks: state.tasks.map((task) =>
+        task.id === taskId ? { ...task, elapsedTime: time } : task
+      ),
+    })),
 }))
 
 export default useStore

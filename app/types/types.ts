@@ -7,6 +7,7 @@ export interface Task {
   dueDate: string
   priority: string
   status: Status
+  elapsedTime: number
 }
 
 export interface Project {
