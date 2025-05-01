@@ -8,6 +8,13 @@ export interface Task {
   status: Status
 }
 
+export interface User {
+  id: string
+  name: string
+  email: string
+  role: 'admin' | 'user'
+}
+
 export type Status = 'todo' | 'inProgress' | 'blocked' | 'done'
 
 export type ColumnData = {

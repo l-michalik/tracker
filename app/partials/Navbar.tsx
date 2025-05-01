@@ -12,10 +12,13 @@ import {
 import Link from "next/link"; // Correct import
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import useStore from "../lib/store";
 
 export function Nav() {
     const pathname = usePathname(); // This gives you the current URL path
     const [user, setUser] = useState('admin')
+
+    const { users } = useStore();
 
     return (
         <Navbar fluid rounded className="!bg-black border-b">
@@ -32,9 +35,9 @@ export function Nav() {
                         <Avatar alt="User settings" img={`/${user}.svg`} rounded />
                     }
                 >
-                    <DropdownItem onClick={() => setUser('kasia')}>Kasia</DropdownItem>
-                    <DropdownItem onClick={() => setUser('mateusz')}>Mateusz</DropdownItem>
-                    <DropdownItem onClick={() => setUser('admin')}>Admin</DropdownItem>
+                    {users.map((user) => (
+                        <DropdownItem key={user.id} onClick={() => setUser(user.name.toLowerCase())}>{user.name}</DropdownItem>
+                    ))}
                 </Dropdown>
                 <NavbarToggle />
             </div>
