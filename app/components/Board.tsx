@@ -8,25 +8,6 @@ type Props = {
 };
 
 export default function Board({ tasks, setTasks }: Props) {
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>, toStatus: string) => {
-    e.preventDefault();
-    const { itemId, fromStatus }: { itemId: string; fromStatus: string } = JSON.parse(
-      e.dataTransfer.getData("text/plain")
-    );
-
-    if (fromStatus === toStatus) return;
-
-    const item = tasks.find((task) => task.id === itemId);
-    if (!item) return;
-
-    setTasks((prev: any) => {
-      const updatedTasks = prev.map((task:any) =>
-        task.id === itemId ? { ...task, status: toStatus } : task
-      );
-      return updatedTasks;
-    });
-  };
-
   // Grupowanie zadań według statusu
   const groupedTasks = tasks.reduce((acc, task) => {
     if (!acc[task.status]) acc[task.status] = [];
@@ -39,9 +20,8 @@ export default function Board({ tasks, setTasks }: Props) {
       {["todo", "inProgress", "blocked", "done"].map((status) => (
         <Column
           key={status}
-          name={status}
+          columnName={status}
           tasks={groupedTasks[status] || []}
-          onDrop={(e) => handleDrop(e, status)}
         />
       ))}
     </div>

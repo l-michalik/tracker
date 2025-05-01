@@ -7,6 +7,7 @@ interface StoreState {
   users: User[]
   updateTask: (updatedTask: Task) => void,
   setTasks: Dispatch<SetStateAction<Task[]>>
+  moveTaskToColumn: (taskId: string, newColumn: string) => void
 }
 
 const initialTasks: Task[] = [
@@ -64,6 +65,10 @@ const useStore = create<StoreState>((set) => ({
     set((state) => ({
       tasks: typeof action === 'function' ? (action as (prevState: Task[]) => Task[])(state.tasks) : action,
     })),
+  moveTaskToColumn: (taskId: string, newColumn: any) =>
+    set((state) => ({
+      tasks: state.tasks.map((task) => task.id === taskId ? { ...task, status: newColumn } : task),
+    }))
 }))
 
 export default useStore
