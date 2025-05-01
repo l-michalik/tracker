@@ -23,7 +23,7 @@ export function Nav() {
         setCurrentUser(user);
     }
     return (
-        <Navbar fluid rounded className="!bg-gray-800 border-b">
+        <Navbar fluid rounded className="!bg-gray-800 border-b rounded-none">
             <NavbarBrand href="/">
                 <img src="/globe.svg" className="mr-3 h-6 sm:h-9" alt="Flowbite React Logo" />
                 <span className="self-center whitespace-nowrap text-xl font-semibold text-gray-300">Tracker.</span>
