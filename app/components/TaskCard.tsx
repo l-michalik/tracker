@@ -89,7 +89,7 @@ export default function TaskCard({ task, columnName }: Props) {
           <hr className="my-2" />
           <div className="task-title text-xs text-gray-300 font-semibold">{task.description}</div>
           <hr className="my-2" />
-          <div className="flex text-sm">
+          <div className="grid grid-cols-3 text-sm">
             {[
               {
                 icon: "📌",
@@ -101,14 +101,14 @@ export default function TaskCard({ task, columnName }: Props) {
                       : "green",
                 text: task.priority || "niski",
               },
-              { icon: "📅", text: task.dueDate || "Brak daty" },
-              { icon: "👤", text: task.assignedTo || "Brak przypisania" },
+              { icon: "📅", text: task.dueDate || "-" },
+              { icon: "👤", text: task.assignedTo || "-" },
             ].map(({ icon, color, text }, index) => (
               <div key={index} className={`flex items-center justify-left gap-2 flex-1`}>
                 <span role="img" aria-label="icon">
                   {icon}
                 </span>
-                <Badge className="flex-1 mr-2 p-1" color={color}>
+                <Badge className="flex-1 mr-2 p-1 flex justify-center" color={color}>
                   {text}
                 </Badge>
               </div>
